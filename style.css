@@ -1,8 +1,48 @@
-html {
-  height: 100%;
-  width: 100%;
-}
-
 .neredzams {
   display: none;
+}
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container, .quiz-container {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+input, button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 44px); /* Account for padding and border */
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input {
+  border: 2px solid #ccc;
+  box-sizing: border-box; /* Includes padding and border in width */
 }
