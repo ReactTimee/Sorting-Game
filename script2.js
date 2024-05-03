@@ -140,7 +140,7 @@ function sendScore(finalScore) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ score: finalScore })
+        body: JSON.stringify({ score: finalScore, variant: 'Vēsture' })
     })
     .then(response => {
         if (response.ok) {

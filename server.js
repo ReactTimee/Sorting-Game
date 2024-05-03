@@ -16,8 +16,9 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-let userName = "";
+let username = "";
 let score = 0;
+let variant = "";
 
 app.get("/generate-question-openai", async (req, res) => {
   let messages = [
@@ -102,28 +103,23 @@ app.get("/generate-cities-question", async (req, res) => {
 });
 
 app.post("/send-name", (req, res) => {
-  userName = req.body.name;
-  console.log("Received name from client:", userName);
+  username = req.body.name;
+  console.log("Received name from client:", username);
   res.json({ message: "Username received successfully!" });
 });
 
 app.post("/send-score", async (req, res) => {
   score = req.body.score;
+  variant = req.body.variant;
   if (score === undefined) {
     return res.status(400).send("Score is required");
   }
   console.log("Received score:", score);
 
-  //save to db
-  const saveObj = {
-    username: userName,
-    score: score,
-    variant: "TODO",
-  };
-  console.log("Saving score to db:", saveObj);
-
-  //TODO -
-
+  const baseUrl = "https://programmesana2.lv/api/rihards-spele-db/post";
+  const url = `${baseUrl}?username=${username}&score=${score}&variant=${variant}&key=rihards123`;
+  //save results in db
+  await fetch(url);
   res.json({ message: "Score received successfully!" });
 });
 
