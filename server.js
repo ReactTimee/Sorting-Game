@@ -118,8 +118,7 @@ app.post("/send-score", async (req, res) => {
   const saveObj = {
     username: userName,
     score: score,
-    timestamp: new Date(),
-    //TODO - variants
+    variant: "TODO",
   };
   console.log("Saving score to db:", saveObj);
 
