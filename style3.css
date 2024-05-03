@@ -1,0 +1,11 @@
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#leaderboardList li {
+    list-style-type: none;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+}

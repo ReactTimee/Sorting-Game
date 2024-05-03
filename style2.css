@@ -27,3 +27,30 @@ font-size: 20px;
 color: #333;
 margin: 10px 0;
 }
+.final-score {
+    font-size: 24px;
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.leaderboard {
+    display: none; /* Hide the leaderboard initially */
+    margin-top: 30px;
+    text-align: center;
+}
+
+.leaderboard h2 {
+    font-size: 22px;
+}
+
+.leaderboard ul {
+    list-style-type: none;
+    padding: 0;
+}
+#finalScoreDisplay, #leaderboard, #leaderboard > h2 {
+    display: none;  
+}
+.hidden {
+    display: none;
+}

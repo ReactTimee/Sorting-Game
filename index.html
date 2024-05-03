@@ -9,7 +9,47 @@
 <body>
   <div class="container">
     <h1 class="title">Spēle Latvija</h1>
-    <button id="start" class="start big-button">Sākt</button> 
+    <button id="start" class="start big-button">Sākt</button>
+
+    <!-- Modal for showing rules -->
+    <div id="rulesModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Spēles noteikumi</h2>
+        <p>
+          <ol>
+            <li><strong>Sākums:</strong>
+                <ul>
+                    <li>Pirms spēles sākuma katram spēlētājam jāievada savs vārds.</li>
+                </ul>
+            </li>
+            <li><strong>Kategorijas izvēle:</strong>
+                <ul>
+                    <li>Spēlētāji izvēlas vienu no trim kategorijām:</li>
+                    <ul>
+                        <li><strong>Vēsture:</strong> Jautājumi par latviešu vēsturiskiem notikumiem un personībām.</li>
+                        <li><strong>Sportisti:</strong> Jautājumi par pazīstamiem latviešu sportistiem un sporta notikumiem.</li>
+                        <li><strong>Pilsētas:</strong> Jautājumi par Latvijas pilsētām.</li>
+                    </ul>
+                </ul>
+            </li>
+            <li><strong>Spēle:</strong>
+                <ul>
+                    <li>Katram jautājumam ir četras atbildes iespējas, no kurām viena ir pareiza.</li>
+                    <li>Spēlētāji izvēlas atbildi, kas, viņuprāt, ir pareiza.</li>
+                </ul>
+            </li>
+            <li><strong>Punkti un spēles beigas:</strong>
+                <ul>
+                    <li>Par katru pareizu atbildi spēlētājs saņem punktus.</li>
+                    <li>Beigās tiek parādīts spēlētāja iegūtais punktu skaits.</li>
+                </ul>
+            </li>
+        </ol>
+        </p>
+      </div>
+    </div>
+
   </div>
   <script src="script.js"></script>
 </body>

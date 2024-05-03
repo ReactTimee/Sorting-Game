@@ -127,15 +127,23 @@ document.addEventListener('DOMContentLoaded', function() {
         endGame();
     }
 }
-
-  function endGame() {
+function endGame() {
     console.log("Game Over! Final score:", score);
-    sendScore(score); 
+    localStorage.setItem('finalScore', score.toString());
+    localStorage.setItem('variant', 'Pilsētas');
+    sendScore(score)
+        .then(() => {
+            window.location.href = 'leaderboard.html';
+        })
+        .catch(error => {
+            console.error('Failed to send score:', error);
+            window.location.href = 'leaderboard.html';
+        });
 }
 
 function sendScore(finalScore) {
-    console.log("Sending score to server:", finalScore);  
-    fetch('http://localhost:3000/send-score', {
+    console.log("Sending score to server:", finalScore);
+    return fetch('http://localhost:3000/send-score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -143,16 +151,10 @@ function sendScore(finalScore) {
         body: JSON.stringify({ score: finalScore, variant: 'Pilsētas' })
     })
     .then(response => {
-        if (response.ok) {
-            return response.json();
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
         }
-        throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-        console.log('Score submitted:', data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
+        return response.json();
     });
 }
 
