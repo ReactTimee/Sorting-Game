@@ -18,6 +18,7 @@ app.listen(port, () => {
 
 let userName = "";
 let score = 0;
+let variant = "";
 
 app.get("/generate-question-openai", async (req, res) => {
   let messages = [
@@ -109,6 +110,7 @@ app.post("/send-name", (req, res) => {
 
 app.post("/send-score", async (req, res) => {
   score = req.body.score;
+  variant = req.body.variant
   if (score === undefined) {
     return res.status(400).send("Score is required");
   }
@@ -119,7 +121,7 @@ app.post("/send-score", async (req, res) => {
     username: userName,
     score: score,
     timestamp: new Date(),
-    //TODO - variants
+    variant: variant,
   };
   console.log("Saving score to db:", saveObj);
 
