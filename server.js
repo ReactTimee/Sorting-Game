@@ -125,7 +125,14 @@ app.post("/send-score", async (req, res) => {
 
 app.get("/get-top-scores", async (req, res) => {
   //fetch from db
-  //TODO - request variants, limits
-  let scores = [];
+  //TODO - request variants
+  let variant = req.query.variant; //TODO - get variant from query
+
+  const baseUrl = "https://programmesana2.lv/api/rihards-spele-db/get";
+  const url = `${baseUrl}?&variant=${variant}&key=rihards123`;
+
+  const response = await fetch(url);
+  const scores = await response.json();
+  console.log("Received scores from db:", scores);
   res.json(scores);
 });
