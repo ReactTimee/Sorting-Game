@@ -49,22 +49,26 @@ document.addEventListener('DOMContentLoaded', function() {
         button.disabled = true;
         if (button.isCorrect) {
             button.classList.remove("btn-outline-primary");
-            button.classList.add("btn-success"); 
+            button.classList.add("btn-success");
         } else {
-            button.classList.add("btn-danger"); 
+            button.classList.add("btn-danger");
         }
     });
-  
+
     if (!selectedButton.isCorrect) {
-        lives--; 
-        updateLivesDisplay(); 
-        setTimeout(loadQuestion, 1500); 
+        lives--;
+        updateLivesDisplay();
+        setTimeout(() => {
+            checkGameOver();
+            loadQuestion();
+        }, 1500);
     } else {
-      score++
-      updateScoreDisplay()
-        setTimeout(loadQuestion, 1500); 
+        score++;
+        updateScoreDisplay();
+        setTimeout(loadQuestion, 1500);
     }
-  }
+}
+
   
   function setupTimer() {
     const timerDisplay = document.getElementById("timerDisplay");
@@ -93,12 +97,16 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.add("btn-danger");
         }
     });
-  
+
     lives--;
     updateLivesDisplay(); 
     alert("Laiks beidzās");
-    setTimeout(loadQuestion, 1500);
-  }
+    setTimeout(() => {
+        checkGameOver();
+        loadQuestion();
+    }, 1500);
+}
+
   
   function updateLivesDisplay() {
     const livesContainer = document.getElementById("lives");
@@ -113,3 +121,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const scoreDisplay = document.getElementById("scoreDisplay");
     scoreDisplay.textContent = `Score: ${score}`; 
   }
+  function checkGameOver() {
+    console.log('Checking if game should end');
+    if (lives <= 0) {
+        endGame();
+    }
+}
+
+  function endGame() {
+    console.log("Game Over! Final score:", score);
+    sendScore(score); 
+}
+
+function sendScore(finalScore) {
+    console.log("Sending score to server:", finalScore);  
+    fetch('http://localhost:3000/send-score', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ score: finalScore })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        console.log('Score submitted:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
