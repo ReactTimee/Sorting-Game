@@ -19,7 +19,7 @@
         }
         table {
             width: 80%;
-            margin: 0 auto;
+            margin: 20px auto;
             border-collapse: collapse;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
@@ -51,34 +51,51 @@
             cursor: pointer;
         }
         .back-button:hover {
-            background-color: #007bff;
+            background-color: #0056b3;
+        }
+        .player-results {
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .result-item {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .result-item span {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Leaderboard</h1>
+    <h1>Labākie rezultāti</h1>
     <a href="index.html" class="back-button">Apakāļ uz sākumu</a>
     <table>
         <thead>
             <tr>
-                <th>Rank</th>
-                <th>Username</th>
+                <th>Vieta</th>
+                <th>Vārds</th>
                 <th>Score</th>
-                <th>Variant</th>
+                <th>Variants</th>
             </tr>
         </thead>
         <tbody id="leaderboard-body">
-    
+            <!-- Leaderboard entries will be inserted here -->
         </tbody>
     </table>
-    <div id="leaderboardInfo"></div>
+    <div id="playerResults" class="player-results">
+        <!-- Player results will be inserted here -->
+    </div>
     <script>
         const variants = ['sportisti', 'Pilsētas', 'Vēsture'];
         
         async function loadLeaderboard() {
             let allScores = [];
             for (let variant of variants) {
-                const url = `http://localhost:3000/get-top-scores?variant=${(variant)}`;
+                const url = `http://localhost:3000/get-top-scores?variant=${encodeURIComponent(variant)}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 const scores = Object.values(data);
@@ -108,11 +125,12 @@
             const finalScore = localStorage.getItem('finalScore');
             const variant = localStorage.getItem('variant');
 
-            const leaderboardInfo = document.getElementById('leaderboardInfo');
-            leaderboardInfo.innerHTML = `
-                <p>Name: ${playerName}</p>
-                <p>Score: ${finalScore}</p>
-                <p>Variant: ${variant}</p>
+            const resultsDiv = document.getElementById('playerResults');
+            resultsDiv.innerHTML = `
+                <div class="result-item">Jūsu rezultāti: <span></span></div>
+                <div class="result-item">Vārds: <span>${playerName || 'N/A'}</span></div>
+                <div class="result-item">Score: <span>${finalScore || 'N/A'}</span></div>
+                <div class="result-item">Variants: <span>${variant || 'N/A'}</span></div>
             `;
         });
     </script>

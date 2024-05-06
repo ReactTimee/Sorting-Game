@@ -67,24 +67,29 @@ document.addEventListener('DOMContentLoaded', function() {
           sendUserNameToServer(inputs.value);
       }
   }
-
   function sendUserNameToServer(userName) {
-      fetch('http://localhost:3000/send-name', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ name: userName })
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log("Server response:", data);
-          spelesIzvele();
-      })
-      .catch(error => {
-          console.error('Error sending username:', error);
-      });
-  }
+    fetch('http://localhost:3000/send-name', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: userName })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok.');
+        return response.json();
+    })
+    .then(data => {
+        console.log("Server response:", data);
+        localStorage.setItem('playerName', userName);  // Store the name in localStorage
+        spelesIzvele();  // Proceed to game category selection
+    })
+    .catch(error => {
+        console.error('Error sending username:', error);
+        alert("Failed to send name. Please try again.");  // Improved user feedback
+    });
+}
+
 
 
   function spelesIzvele() {
@@ -94,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
       poga2.style.display = "block";
       poga3.style.display = "block";
   }
-
+  
   start.addEventListener("click", vardaIevade);
   inputPoga.addEventListener("click", sendName);
 

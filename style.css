@@ -83,16 +83,22 @@ input {
   text-decoration: none;
   cursor: pointer;
 }
-ol {
-  list-style-type: none; /* This removes the numbers */
-  padding-left: 20px;
+.modal-content {
+  text-align: left; /* Ensures text within the modal content is aligned left */
+  padding: 20px; /* Adds some padding inside the modal content for better readability */
 }
 
-li {
-  margin-bottom: 10px;
+.modal-content ol, .modal-content ul {
+  padding-left: 20px; /* Adds padding to lists for better structure and readability */
 }
 
-ul, ol ul {
-  list-style-type: none; /* Removes bullet points and numbers for all nested lists */
-  padding-left: 20px;
+.modal-content h2 {
+  margin-top: 0; /* Removes top margin from the heading for tighter spacing if needed */
+}
+
+.variant-text {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px 0;
+  color: #333;
 }
