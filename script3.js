@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     if (lives > 0) {
         try {
-            const response = await fetch("http://localhost:3000/generate-sports-question");
+            const response = await fetch("https://rihards-backend-duhiw3c7eq-lz.a.run.app/generate-sports-question");
             const data = await response.json();
             document.getElementById('question').innerText = data.question;
   
@@ -130,33 +130,49 @@ document.addEventListener('DOMContentLoaded', function() {
 function endGame() {
     console.log("Game Over! Final score:", score);
     localStorage.setItem('finalScore', score.toString());
-    localStorage.setItem('variant', 'sportisti');
+    localStorage.setItem('variant', 'Sportisti');
+
     sendScore(score)
-        .then(() => {
-            window.location.href = 'leaderboard.html';
-        })
-        .catch(error => {
-            console.error('Failed to send score:', error);
-            window.location.href = 'leaderboard.html';
-        });
-}
+      .then(() => {
+        window.location.href = 'leaderboard.html';
+      })
+      .catch(error => {
+        console.error('Failed to send score:', error);
+        window.location.href = 'leaderboard.html';
+      });
+  }
+  
 
 function sendScore(finalScore) {
-    console.log("Sending score to server:", finalScore);
-    return fetch('http://localhost:3000/send-score', {
+    const username = localStorage.getItem('playerName');
+   
+    
+    return fetch('https://rihards-backend-duhiw3c7eq-lz.a.run.app/send-score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ score: finalScore, variant: 'sportisti' })
+        body: JSON.stringify({
+            score: finalScore,
+            variant: 'Sportisti', 
+            username: username
+        })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
         return response.json();
+    })
+    .then(data => {
+        console.log('Server response:', data);
+    })
+    .catch(error => {
+        console.error('Error sending score:', error);
     });
 }
+
+
 
 
 

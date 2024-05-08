@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Spēle Latvija</title>
+  <title>Game Start Example</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <div class="container">
-    <h1 class="title">Spēle Latvija</h1>
-    <button id="start" class="start big-button">Sākt</button>
+    <button id="startButton" class="big-button">Sākt spēli</button>
 
-    <!-- Modal for showing rules -->
-    <div id="rulesModal" class="modal">
+    <div id="rulesModal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="closeButton">&times;</span>
         <h2>Spēles noteikumi</h2>
         <p>
           <ol>
@@ -47,10 +45,22 @@
             </li>
         </ol>
         </p>
+        <button id="acknowledgeRules">Saprotu noteikumus</button>
       </div>
     </div>
 
+    <input type="text" id="usernameInput" placeholder="Ievadiet savu vārdu" style="display: none;">
+    <button id="submitName" onclick="test()" style="display: none;">Submit Name</button>
+
+    <div id="gameOptions" style="display: none;">
+      <button id="historyButton">Vēsture</button>
+      <button id="sportsButton">Sportisti</button>
+      <button id="citiesButton">Pilsētas</button>
+    </div>
   </div>
+
   <script src="script.js"></script>
+
+
 </body>
 </html>

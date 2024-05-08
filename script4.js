@@ -3,17 +3,33 @@ document.addEventListener('DOMContentLoaded', function() {
     updateLivesDisplay(); 
     loadQuestion(); 
   });
+
   let score = 0;
   let lives = 3; 
   let timerId; 
   const questionTimeout = 20; 
   
+  function test() {
+    console.log("Button was clicked");
+
+    // Perform additional actions
+    const username = document.getElementById('usernameInput').value.trim();
+    if (username) {
+        localStorage.setItem('playerName', username);
+        console.log('Username saved:', username);
+        // You can hide the button or display other elements here
+    } else {
+        alert('Please enter your name.');
+    }
+}
+
+
   async function loadQuestion() {
     clearTimeout(timerId); 
   
     if (lives > 0) {
         try {
-            const response = await fetch("http://localhost:3000/generate-cities-question");
+            const response = await fetch("https://rihards-backend-duhiw3c7eq-lz.a.run.app/generate-cities-question");
             const data = await response.json();
             document.getElementById('question').innerText = data.question;
   
@@ -142,19 +158,31 @@ function endGame() {
 }
 
 function sendScore(finalScore) {
-    console.log("Sending score to server:", finalScore);
-    return fetch('http://localhost:3000/send-score', {
+
+    const username = localStorage.getItem('playerName');
+    
+    return fetch('https://rihards-backend-duhiw3c7eq-lz.a.run.app/send-score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ score: finalScore, variant: 'Pilsētas' })
+        body: JSON.stringify({
+            score: finalScore,
+            variant: 'Pilsētas', 
+            username: username
+        })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
         return response.json();
+    })
+    .then(data => {
+        console.log('Server response:', data);
+    })
+    .catch(error => {
+        console.error('Error sending score:', error);
     });
 }
 

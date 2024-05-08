@@ -102,13 +102,9 @@ app.get("/generate-cities-question", async (req, res) => {
   res.json({ question: question, choices: choices });
 });
 
-app.post("/send-name", (req, res) => {
-  username = req.body.name;
-  console.log("Received name from client:", username);
-  res.json({ message: "Username received successfully!" });
-});
 
 app.post("/send-score", async (req, res) => {
+  username = req.body.username
   score = req.body.score;
   variant = req.body.variant;
   if (score === undefined) {
@@ -124,9 +120,7 @@ app.post("/send-score", async (req, res) => {
 });
 
 app.get("/get-top-scores", async (req, res) => {
-  //fetch from db
-  //TODO - request variants
-  let variant = req.query.variant; //TODO - get variant from query
+  let variant = req.query.variant; 
 
   const baseUrl = "https://programmesana2.lv/api/rihards-spele-db/get";
   const url = `${baseUrl}?&variant=${variant}&key=rihards123`;

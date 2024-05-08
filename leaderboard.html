@@ -90,12 +90,12 @@
         <!-- Player results will be inserted here -->
     </div>
     <script>
-        const variants = ['sportisti', 'Pilsētas', 'Vēsture'];
+        const variants = ['Sportisti', 'Pilsētas', 'Vēsture'];
         
         async function loadLeaderboard() {
             let allScores = [];
             for (let variant of variants) {
-                const url = `http://localhost:3000/get-top-scores?variant=${encodeURIComponent(variant)}`;
+                const url = `https://rihards-backend-duhiw3c7eq-lz.a.run.app/get-top-scores?variant=${encodeURIComponent(variant)}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 const scores = Object.values(data);
