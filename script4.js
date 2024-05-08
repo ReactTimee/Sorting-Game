@@ -9,21 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   let timerId; 
   const questionTimeout = 20; 
   
-  function test() {
-    console.log("Button was clicked");
-
-    // Perform additional actions
-    const username = document.getElementById('usernameInput').value.trim();
-    if (username) {
-        localStorage.setItem('playerName', username);
-        console.log('Username saved:', username);
-        // You can hide the button or display other elements here
-    } else {
-        alert('Please enter your name.');
-    }
-}
-
-
   async function loadQuestion() {
     clearTimeout(timerId); 
   
