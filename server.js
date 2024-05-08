@@ -104,7 +104,7 @@ app.get("/generate-cities-question", async (req, res) => {
 
 
 app.post("/send-score", async (req, res) => {
-  username = req.body.username
+  username = req.body.name;
   score = req.body.score;
   variant = req.body.variant;
   if (score === undefined) {

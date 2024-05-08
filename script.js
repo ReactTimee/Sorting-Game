@@ -34,14 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function test() {
-  const username = document.getElementById('usernameInput').value.trim();
-  if (username) {
-    localStorage.setItem('playerName', username);
-    console.log('Username saved:', username);
+  const usernameInput = document.getElementById('usernameInput');
+  if (usernameInput) {
+    const username = usernameInput.value.trim();
+    if (username) {
+      localStorage.setItem('playerName', username);
+      console.log('Username saved:', username);
+    } else {
+      alert('Please enter your name.');
+    }
   } else {
-    alert('Please enter your name.');
+    console.error('Username input field not found');
   }
 }
+
 
 
 

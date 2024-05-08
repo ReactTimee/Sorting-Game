@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let lives = 3; 
   let timerId; 
   const questionTimeout = 20; 
-
+  
   async function loadQuestion() {
     clearTimeout(timerId); 
   
@@ -132,6 +132,8 @@ function endGame() {
     console.log("Game Over! Final score:", score);
     localStorage.setItem('finalScore', score.toString());
     localStorage.setItem('variant', 'Vēsture');
+
+
     sendScore(score)
         .then(() => {
             window.location.href = 'leaderboard.html';
@@ -143,8 +145,9 @@ function endGame() {
 }
 
 function sendScore(finalScore) {
-    const username = localStorage.getItem('playerName');
-    
+
+    const playerName = localStorage.getItem('playerName');
+    console.log(playerName)
     return fetch('https://rihards-backend-duhiw3c7eq-lz.a.run.app/send-score', {
         method: 'POST',
         headers: {
@@ -153,7 +156,7 @@ function sendScore(finalScore) {
         body: JSON.stringify({
             score: finalScore,
             variant: 'Vēsture', 
-            username:username
+            name: playerName,
         })
     })
     .then(response => {

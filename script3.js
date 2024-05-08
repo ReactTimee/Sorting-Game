@@ -143,10 +143,10 @@ function endGame() {
   }
   
 
-function sendScore(finalScore) {
-    const username = localStorage.getItem('playerName');
-   
-    
+  function sendScore(finalScore) {
+
+    const playerName = localStorage.getItem('playerName');
+    console.log(playerName)
     return fetch('https://rihards-backend-duhiw3c7eq-lz.a.run.app/send-score', {
         method: 'POST',
         headers: {
@@ -155,7 +155,7 @@ function sendScore(finalScore) {
         body: JSON.stringify({
             score: finalScore,
             variant: 'Sportisti', 
-            username: username
+            name: playerName,
         })
     })
     .then(response => {
@@ -171,8 +171,6 @@ function sendScore(finalScore) {
         console.error('Error sending score:', error);
     });
 }
-
-
 
 
 
